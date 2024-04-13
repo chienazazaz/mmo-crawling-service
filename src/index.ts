@@ -15,4 +15,9 @@ app.use("/fetch-metadata", async (req, res) => {
   res.status(200).json(data);
 });
 
+app.use("/", async (req, res) => {
+    
+    res.status(200).send("something in the way");
+  });
+
 app.listen(8080, () => console.log("Listening on port 8080"));

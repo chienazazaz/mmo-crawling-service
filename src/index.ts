@@ -4,9 +4,11 @@ import { getMetaData } from "./metadata-scraper";
 
 const app = express();
 
-app.use(cors());
-
 app.use(express.json());
+app.use(cors({
+    origin: "*",
+  }));
+
 
 app.use("/fetch-metadata", async (req, res) => {
   const data = await getMetaData(req.body.url);

@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use("/fetch-metadata", async (req, res) => {
   const data = await getMetaData(req.body.url);
-  res.send(data).status(200);
+  res.status(200).json(data);
 });
 
 app.listen(8080, () => console.log("Listening on port 8080"));

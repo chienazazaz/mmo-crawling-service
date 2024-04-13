@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { getMetaData } from "./metadata-scraper";
+import { ToiDiSpyController } from "./toidispy/toidispy.controller";
 
 const app = express();
 
@@ -10,6 +11,8 @@ app.use(
     origin: "*",
   })
 );
+
+app.use('/spy',ToiDiSpyController)
 
 app.use("/fetch-metadata", async (req, res) => {
   const data = await getMetaData(req.body.url);

@@ -7,7 +7,7 @@ export const ToiDiSpyController = express.Router();
 ToiDiSpyController.use("/get-data", async (req, res) => {
   try {
     const params = await Joi.object({
-      q: Joi.string().allow(null),
+      q: Joi.string().optional(),
       sort: Joi.string()
         .valid(
           "created_time",
@@ -22,11 +22,13 @@ ToiDiSpyController.use("/get-data", async (req, res) => {
       search_on: Joi.string()
         .valid("content", "page_id", "domain", "pixel")
         .default("content"),
-      date: Joi.string().allow(null),
-      type: Joi.string().valid("photo", "video", "link").allow(null),
-      comment: Joi.number().valid(10, 50, 100, 500, 1000).allow(null),
-      like: Joi.number().valid(10, 50, 100, 500, 1000).allow(null),
-      share: Joi.number().valid(10, 50, 100, 500, 1000).allow(null),
+      startDate: Joi.string().optional(),
+      endDate: Joi.string().optional(),
+      dateRange: Joi.string().valid('custom','7 days', 'this month', 'last month', 'last 3 months', 'last 6 months').default('7 days'),
+      type: Joi.string().valid("photo", "video", "link").optional(),
+      comment: Joi.number().valid(10, 50, 100, 500, 1000).optional(),
+      like: Joi.number().valid(10, 50, 100, 500, 1000).optional(),
+      share: Joi.number().valid(10, 50, 100, 500, 1000).optional(),
     }).validateAsync(req.body);
 
     const results = await getData(params);

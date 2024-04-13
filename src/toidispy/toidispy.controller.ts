@@ -18,7 +18,7 @@ ToiDiSpyController.use("/get-data", async (req, res) => {
           "share"
         )
         .default("added_time"),
-      cursor: Joi.string().allow(null),
+      cursor: Joi.string().optional(),
       search_on: Joi.string()
         .valid("content", "page_id", "domain", "pixel")
         .default("content"),

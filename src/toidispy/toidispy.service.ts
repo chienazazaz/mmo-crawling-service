@@ -7,7 +7,11 @@ const client = axios.create({
   headers: RequestHeaders,
 });
 
-const generateDateParam = (datePeriod: string,start?:string,end?:string) => {
+const generateDateParam = (
+  datePeriod: string,
+  start?: string,
+  end?: string
+) => {
   const curentDate = dayjs().format("MM/DD/YYYY");
   switch (datePeriod) {
     case "7 days":
@@ -42,8 +46,10 @@ const generateDateParam = (datePeriod: string,start?:string,end?:string) => {
         .subtract(180, "day")
         .endOf("month")
         .format("MM/DD/YYYY")}`;
-    case 'custom':
-      return `${dayjs(start).format("MM/DD/YYYY")}-${dayjs(end).format("MM/DD/YYYY")}`
+    case "custom":
+      return `${dayjs(start).format("MM/DD/YYYY")}-${dayjs(end).format(
+        "MM/DD/YYYY"
+      )}`;
 
     default:
       return `${dayjs()
@@ -55,8 +61,13 @@ const generateDateParam = (datePeriod: string,start?:string,end?:string) => {
 export const getData = async (params: any) => {
   const generatedParams: ToiDiSpyParams = {
     ...params,
-    date: generateDateParam(params.datePeriod,params.startDate,params.endDate),
+    date: generateDateParam(
+      params.datePeriod,
+      params.startDate,
+      params.endDate
+    ),
   };
+  console.log(generatedParams);
   const results: Record<string, any>[] = [];
   const _get = async (
     params: ToiDiSpyParams
@@ -69,16 +80,17 @@ export const getData = async (params: any) => {
     const { data, cursor, code } = response.data;
 
     if (code !== 200) {
-      console.log(response.data);
+      console.log(response.headers);
       throw { error: new Error("Something went wrong"), data: response.data };
     }
-    results.push(data);
+    results.push(...data);
+    console.log(results.length);
     if (cursor) {
       return _get(Object.assign(params, { cursor }));
     } else {
-      return data;
+      return results;
     }
   };
 
-  return await _get(params);
+  return await _get(generatedParams);
 };

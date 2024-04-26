@@ -192,3 +192,11 @@ dist
 .yarn/install-state.gz
 .pnp.*
 dist
+.auth
+**local*
+**login*
+*.json
+
+!tsconfig.json
+!vercel.json
+!package.json

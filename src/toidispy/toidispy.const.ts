@@ -1,7 +1,7 @@
 import { USER_AGENT } from "../common.const";
 
 export const BASE_URL = "https://app.toidispy.com/api/";
-export const COOKIE = `g_state={"i_l":0}; user_id=3185; iat=1713024462; token=6ec27493d84cfd9e911fd93fbbf7c51ae4565a6b52264213d520bc2412bae4a1`;
+export const COOKIE = `g_state={"i_l":0}; user_id=3185; iat=1713026718; token=6ffda9bdc520dd90f487ff2602ec48af15d93c9baa1028ce8c1bb98e5690631b`;
 
 export const RequestHeaders = {
     "User-Agent": USER_AGENT,
